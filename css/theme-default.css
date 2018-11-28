@@ -9756,6 +9756,7 @@ hr.small {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  opacity: 100;
 }
 
 .masthead .masthead-logo {
