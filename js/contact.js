@@ -79,10 +79,12 @@ $(function() {
 $('#name').focus(function() {
   $('#success').html('');
 });
-
-function displayPopup() {
-  var popup = document.getElementById("popup");
-  var frame = document.getElementById('popupFrame');
-  frame.src = "http://maps.google.com/?q=405HilgardAve,LosAngeles,California,90095";
-  popup.style.display = "block";
+function myFunction() {
+  var x = document.getElementById("myDIV");
+  if (x.style.display === "none") {
+      x.style.display = "block";
+  } else {
+      x.style.display = "none";
+  }
 }
+
