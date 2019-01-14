@@ -97,16 +97,7 @@
   });
 
 })(jQuery); // End of use strict
-//firebase
-var config = {
-  apiKey: "AIzaSyDilIyI87x61VxJckbJHHFjjaTaFBnEZIQ",
-  authDomain: "train-scheduler-45039.firebaseapp.com",
-  databaseURL: "https://train-scheduler-45039.firebaseio.com",
-  projectId: "train-scheduler-45039",
-  storageBucket: "train-scheduler-45039.appspot.com",
-  messagingSenderId: "762376079160"
-};
-firebase.initializeApp(config);
+
 
 //rootref is a refernec eto the whole firebase database
 const rootRef = firebase.database().ref();

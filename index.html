@@ -557,6 +557,65 @@
   <script src="js/validation.js"></script>
   <script src="js/core.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+  <script>
+  //firebase
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyACpdtzK_TuGxDevNMy7DfF2PoyqACDyLE",
+    authDomain: "portfolio-e49ba.firebaseapp.com",
+    databaseURL: "https://portfolio-e49ba.firebaseio.com",
+    projectId: "portfolio-e49ba",
+    storageBucket: "",
+    messagingSenderId: "116246438213"
+  };
+  firebase.initializeApp(config);
+  //rootref is a refernec eto the whole firebase database
+const rootRef = firebase.database().ref();
+//page count ref \s is the node that tracks the hits
+const pageCountsRef = rootRef.child("pageCounts");
+
+//gets the key and current hit count
+let getHistory = new Promise(function(resolve, reject){
+
+let obj = {};
+pageCountsRef.orderByChild("page").equalTo(location.pathname).once("value", function(snapshot){
+snapshot.forEach(function (child){
+  obj = {
+    key: child.key,
+    count: child.val().count
+  }
+});
+  if(obj){
+    resolve(obj);
+  }else{
+    reject(error);
+  }
+})
+});
+getHistory.then(function(fromResolve){
+  var key = fromResolve.key;
+  var pastcounts = fromResolve.count;
+  // if key is undefined then create new key for database item.
+  if(key == undefined){
+    key = pageCountsRef.push().key;
+    pastcounts = 0;
+  }
+//total hits to date
+counts = pastcounts+1;
+var postData = {
+  page: location.pathname,
+  count: counts,
+  lastvisit: firebase.database.ServerValue.TIMESTAMP,
+  lastreffer: document.referrer
+}
+var updates = {};
+updates["/pageCounts/"+key]=postData;
+rootRef.update(updates);
+}).catch(function(fromReject){
+console.log(error);
+})
+
+</script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
       AOS.init();
