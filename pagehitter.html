@@ -75,7 +75,7 @@ background-color: palegoldenrod;
                     row.insertCell(2).appendChild(document.createTextNode(itemData.count));
                     var dt = new Date(itemData.lastvisit).toLocaleString("en-us");
                     row.insertCell(3).appendChild(document.createTextNode(dt));
-                    row.insertCell(4).appendChild(document.createTextNode(itemData.lastreferrer));
+                    row.insertCell(4).appendChild(document.createTextNode(itemData.lastreffer));
                     row.insertCell(5).appendChild(document.createTextNode(itemSnapshot.key.slice(1)));
                     rowIndex += 1;
                 })
