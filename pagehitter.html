@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #tblCounts{
+    border-collapse: collapse;
+}
+#tblCounts td{
+    border: solid 1px silver;
+    padding: 2px 4px;
+}
+#tblCounts th{
+background: black;
+color: white;
+text-decoration: underline;
+cursor: pointer;
+}
+#tblCounts th:nth-child(1),
+#tblCounts th:nth-child(5){
+text-decoration: none;
+cursor: default;
+}
+#tblCounts tr:nth-child(even){
+background-color: palegoldenrod;
+}
+#tblCounts td:nth-child(1),
+#tblCounts td:nth-child(3){
+    text-align: right;
+}
+    </style>
+</head>
+
+<body>
+    <h1>Hit counter</h1>
+    <table id="tblCounts" border="1">
+        <tr>
+            <th>Row</th>
+            <th onclick="sortby('page')">Page</th>
+            <th onclick="sortby('count')">Visits</th>
+            <th onclick="sortby('lastvisit')">Last Visits</th>
+            <th onclick="sortby('lastreferrer')">Last Referrer</th>
+            <th onclick="sortby('key')">key</th>
+        </tr>
+    </table>
+    <input type="hidden" id="hdnSortColumn" value="page">
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyACpdtzK_TuGxDevNMy7DfF2PoyqACDyLE",
+            authDomain: "portfolio-e49ba.firebaseapp.com",
+            databaseURL: "https://portfolio-e49ba.firebaseio.com",
+            projectId: "portfolio-e49ba",
+            storageBucket: "portfolio-e49ba.appspot.com",
+            messagingSenderId: "116246438213"
+        };
+        firebase.initializeApp(config);
+        function showTable() {
+            var tblCounts = document.getElementById("tblCounts");
+            var rowIndex = 1;
+            const pageCountsRef = firebase.database().ref("pageCounts/").orderByChild(document.getElementById("hdnSortColumn").value);
+            pageCountsRef.once("value", function (snapshot) {
+                snapshot.forEach(function (itemSnapshot) {
+                    var itemData = itemSnapshot.val();
+                    var row = tblCounts.insertRow(rowIndex);
+                    row.insertCell(0).appendChild(document.createTextNode(rowIndex));
+                    var pg = itemData.page.replace(/%20/g, "")
+                    pg = pg.length == 1 ? pg : pg.slice(1);
+                    row.insertCell(1).appendChild(document.createTextNode(itemData.page));
+                    row.insertCell(2).appendChild(document.createTextNode(itemData.count));
+                    var dt = new Date(itemData.lastvisit).toLocaleString("en-us");
+                    row.insertCell(3).appendChild(document.createTextNode(dt));
+                    row.insertCell(4).appendChild(document.createTextNode(itemData.lastreferrer));
+                    row.insertCell(5).appendChild(document.createTextNode(itemSnapshot.key.slice(1)));
+                    rowIndex += 1;
+                })
+            })
+        }
+        function sortby(col) {
+            var tblCounts = document.getElementById("tblCounts");
+            var rows = tblCounts.rows.length;
+            for (i = rows - 1; i > 0; i--) {
+                tblCounts.deleteRow(i);
+            }
+            document.getElementById("hdnSortColumn").value = col;
+            showTable();
+        }
+        showTable();
+    </script>
+</body>
+
+</html>
