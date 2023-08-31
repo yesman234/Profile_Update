@@ -5,7 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css" integrity="sha384-QYIZto+st3yW+o8+5OHfT6S482Zsvz2WfOzpFSXMF9zqeLcFV0/wlZpMtyFcZALm" crossorigin="anonymous">
+
     <title>Document</title>
+   <div class="container">
+    <div class="row">
+        <div class="col-md-6"> 
+            <i class="fa fa-plane" aria-hidden="true" style="width:100%",style="height:50%">
+            PlaneIcon
+        </i>
+    </div>  
+</div>
     <style>
         #tblCounts{
     border-collapse: collapse;
@@ -37,9 +50,10 @@ background-color: palegoldenrod;
 
 <body>
     <h1>Hit counter</h1>
+    <div class="container">
+        <div class="row">
     <table id="tblCounts" border="1">
         <tr>
-            <th>Row</th>
             <th onclick="sortby('page')">Page</th>
             <th onclick="sortby('count')">Visits</th>
             <th onclick="sortby('lastvisit')">Last Visits</th>
@@ -47,6 +61,9 @@ background-color: palegoldenrod;
             <th onclick="sortby('key')">key</th>
         </tr>
     </table>
+</div>
+    </div>
+    </div>
     <input type="hidden" id="hdnSortColumn" value="page">
     <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
     <script>
