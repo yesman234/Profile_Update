@@ -293,6 +293,7 @@
     }
   }
   #stage {
+    flex: space-between;
     margin: 1em auto;
     -webkit-perspective: 1200px;
     -moz-perspective: 1200px;
